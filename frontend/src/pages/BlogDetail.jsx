@@ -139,7 +139,7 @@ Despite its harsh conditions, the desert is home to various adapted wildlife spe
   const getImageUrl = (imagePath) => {
     if (!imagePath) return 'https://via.placeholder.com/800x400';
     if (imagePath.startsWith('http')) return imagePath; // Already a full URL
-    return `http://localhost:3002${imagePath}`; // Add base URL for uploaded files
+    return `https://travel-blog-mzd0.onrender.com${imagePath}`; // Add base URL for uploaded files
   };
 
   return (

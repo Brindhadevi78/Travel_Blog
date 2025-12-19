@@ -93,7 +93,7 @@ const CreatePost = () => {
         if (err.message.includes('timeout')) {
           errorMessage = 'Upload timeout. Please try with a smaller image or check your connection.';
         } else if (err.message.includes('Network Error') || err.message.includes('ERR_NETWORK')) {
-          errorMessage = 'Cannot connect to server. Please make sure the backend is running on port 5000.';
+          errorMessage = 'Cannot connect to server. Please check your internet connection.';
         } else {
           errorMessage = err.message;
         }

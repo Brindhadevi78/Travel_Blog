@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000/api",
+  baseURL: "https://travel-blog-mzd0.onrender.com/api",
   timeout: 30000, // 30 seconds timeout
   headers: {
     'Content-Type': 'application/json',
