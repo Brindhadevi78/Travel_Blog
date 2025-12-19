@@ -28,15 +28,18 @@ app.get('/api/test', (req, res) => {
   res.json({ message: 'API endpoints working!', timestamp: new Date() });
 });
 
-// MongoDB connection - Try Atlas first, fallback to local
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('✅ Connected to MongoDB Atlas successfully!'))
-  .catch(err => {
-    console.log('❌ Atlas connection failed, trying local MongoDB...');
-    mongoose.connect(process.env.MONGODB_LOCAL)
-      .then(() => console.log('✅ Connected to local MongoDB successfully!'))
-      .catch(localErr => console.log('❌ Both Atlas and local MongoDB failed:', localErr));
-  });
+// MongoDB connection
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('✅ Connected to MongoDB Atlas successfully!');
+  } catch (err) {
+    console.error('❌ MongoDB connection failed:', err);
+    process.exit(1);
+  }
+};
+
+connectDB();
 
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {

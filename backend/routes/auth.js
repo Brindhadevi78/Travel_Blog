@@ -16,7 +16,12 @@ router.post('/test-post', (req, res) => {
 // Register
 router.post('/register', async (req, res) => {
   try {
+    console.log('Register request:', req.body);
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -31,7 +36,7 @@ router.post('/register', async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id },
-      process.env.JWT_SECRET || 'your-secret-key',
+      process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
 
@@ -40,7 +45,8 @@ router.post('/register', async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email, role: user.role }
     });
   } catch (error) {
-    res.status(500).json({ message: 'Server error' });
+    console.error('Register error:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
 
